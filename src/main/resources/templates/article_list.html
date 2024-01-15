@@ -1,0 +1,21 @@
+<html layout:decorate="~{layout}">
+<div layout:fragment="content" class="container">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">번호</th>
+            <th scope="col">제목</th>
+            <th scope="col">작성일</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="article, loop : ${articleList}">
+            <th th:text="${loop.count}"></th>
+            <td th:text="${article.title}"></td>
+            <td th:text="${article.createDate}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <a href="/article/create">등록</a>
+</div>
+</html>
