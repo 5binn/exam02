@@ -1,6 +1,6 @@
-package com.example.exam.article;
+package com.example.exam.comment;
 
-import com.example.exam.comment.Comment;
+import com.example.exam.article.Article;
 import com.example.exam.member.Member;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -13,12 +13,10 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
-public class Article {
+public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(length = 200)
-    private String title;
     @Column(columnDefinition = "TEXT")
     private String content;
     @CreatedDate
@@ -27,6 +25,6 @@ public class Article {
     private LocalDateTime modifyDate;
     @ManyToOne
     private Member member;
-    @OneToMany(mappedBy = "article", cascade = CascadeType.REMOVE)
-    private Comment comment;
+    @ManyToOne
+    private Article article;
 }

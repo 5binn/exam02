@@ -1,0 +1,30 @@
+<html layout:decorate="~{layout}">
+<div layout:fragment="content" class="container">
+    <div class="h3" th:text="${article.title}"></div>
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="border-bottom my-3 py-2" th:text="${article.content}"></h5>
+            <p class="badge text-bg-light"
+               th:if="${article.member != null}" th:text="${article.member.username}"></p>
+            <p class="badge text-bg-light"
+               th:text="${#temporals.format(article.createDate, 'yyyy-MM-dd HH:MM')}"></p>
+        </div>
+    </div>
+    <div>
+        <a th:href="@{|/article/modify/${article.id}|}" class="btn btn-secondary btn-sm"
+           sec:authorize="isAuthenticated()"
+           th:if="${article.member != null and #authentication.getPrincipal().getUsername() == article.member.username}"
+        >수정</a>
+        <a th:href="@{|/article/delete/${article.id}|}" class="btn btn-secondary btn-sm"
+           sec:authorize="isAuthenticated()"
+           th:if="${article.member != null and #authentication.getPrincipal().getUsername() == article.member.username}"
+        >삭제</a>
+    </div>
+    <br>
+    <form th:action="@{|/comment/create/${article.id}|}" method="post" class="">
+        <textarea name="content" id="content" rows="15"></textarea>
+        <input type="submit" value="댓글등록">
+    </form>
+</div>
+</html>
